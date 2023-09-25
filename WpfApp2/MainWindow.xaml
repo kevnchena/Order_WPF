@@ -7,48 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="904" Width="604">
     <Grid Margin="0,0,0,58">
-        <StackPanel Background="#FFD0EFE9" Margin="61,33,61,337">
-            <StackPanel x:Name="stackPanel___________" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="紅茶大杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="60元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox1" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="stackPanel_____________________" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="紅茶小杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="40元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox2" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="StackPanel_____________________複製__C_" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="綠茶大杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="60元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox3" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="StackPanel_____________________複製__C_1" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="綠茶小杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="40元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox4" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="StackPanel_____________________複製__C_2" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="青茶大杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="60元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox5" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="StackPanel_____________________複製__C_3" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="青茶小杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="40元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox6" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="StackPanel_____________________複製__C_4" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="咖啡大杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="80元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox7" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-            <StackPanel x:Name="StackPanel_____________________複製__C_4複製__C_" Height="50" Background="#FFF5F4ED" Orientation="Horizontal">
-                <Label Content="咖啡小杯" Width="200" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Label Content="60元" Width="90" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBox x:Name="textbox8" TextWrapping="Wrap" Width="120" Height="38" FontSize="18" TextAlignment="Center" TextChanged="PlaceOrder" />
-            </StackPanel>
-        </StackPanel>
+        <GroupBox Header="飲料品項" Margin="61,10,61,416" FontSize="16" Background="#FFD5F2F7"/>
         <Button x:Name="orderbotton" Content="訂購" HorizontalAlignment="Left" Margin="264,442,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="76" Grid.ColumnSpan="2" Click="Click_botton"/>
         <TextBlock x:Name="textblock" HorizontalAlignment="Center" Margin="0,514,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="307" Width="482" FontSize="16" FontWeight="Bold" Background="#FFF7F2FF"/>
     </Grid>

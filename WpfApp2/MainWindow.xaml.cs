@@ -26,7 +26,21 @@ namespace WpfApp2
         public MainWindow()
         {   
             InitializeComponent();
+            //新增飲料
             AddNewDrink(drinks);
+            //顯示所有飲料
+            DisplayDrinkMenu(drinks);
+
+        }
+
+        private void DisplayDrinkMenu(Dictionary<string, int> mydrinks)
+        {
+            foreach(var drink in mydrinks)
+            {
+
+            }
+
+
         }
 
         private void AddNewDrink(Dictionary<string, int> mydrinks)
