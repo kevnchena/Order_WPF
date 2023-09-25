@@ -37,7 +37,34 @@ namespace WpfApp2
         {
             foreach(var drink in mydrinks)
             {
+                StackPanel sp = new StackPanel();
+                CheckBox cb = new CheckBox(); 
+                Slider sl = new Slider();
+                Label lb = new Label();
 
+                cb.Content = $"{drink.Key}  {drink.Value}元";
+                cb.FontFamily = new FontFamily("Consolas");
+                cb.Foreground = Brushes.Blue;
+                cb.FontSize = 18;
+                cb.Width = 200;
+                cb.Margin= new Thickness(5);
+
+                sl.Width = 100;
+                sl.Value = 0;
+                sl.Minimum = 0;
+                sl.Maximum = 10;
+
+                lb.Width = 50;
+                lb.Content = "0";
+
+                sp.Orientation  = Orientation.Horizontal;
+                sp.Height = 30;
+                sp.Children.Add(cb);
+                sp.Children.Add(sl);
+                sp.Children.Add(lb); 
+
+                DrinkMenu.Children.Add(sp);
+                DrinkGroup.Height = (mydrinks.Count+1)*30;
             }
 
 

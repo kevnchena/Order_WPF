@@ -7,8 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="904" Width="604">
     <Grid Margin="0,0,0,58">
-        <GroupBox Header="飲料品項" Margin="61,10,61,416" FontSize="16" Background="#FFD5F2F7"/>
-        <Button x:Name="orderbotton" Content="訂購" HorizontalAlignment="Left" Margin="264,442,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="76" Grid.ColumnSpan="2" Click="Click_botton"/>
-        <TextBlock x:Name="textblock" HorizontalAlignment="Center" Margin="0,514,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="307" Width="482" FontSize="16" FontWeight="Bold" Background="#FFF7F2FF"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <GroupBox x:Name="DrinkGroup" Header="飲料品項" Margin="61,10,61,368" FontSize="16" Background="#FFD5F2F7">
+            <StackPanel x:Name="DrinkMenu"/>
+        </GroupBox>
+        <Button x:Name="orderbotton" Content="訂購" HorizontalAlignment="Center" Margin="0,473,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="76" Click="Click_botton" Height="27"/>
+        <TextBlock x:Name="textblock" HorizontalAlignment="Center" Margin="0,514,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="352" Width="482" FontSize="16" FontWeight="Bold" Background="#FFF7F2FF" Grid.RowSpan="2"/>
     </Grid>
 </Window>
