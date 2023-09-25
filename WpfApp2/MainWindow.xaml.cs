@@ -38,7 +38,7 @@ namespace WpfApp2
             foreach(var drink in mydrinks)
             {
                 StackPanel sp = new StackPanel();
-                CheckBox cb = new CheckBox(); 
+                CheckBox cb = new CheckBox(); //打勾勾
                 Slider sl = new Slider();
                 Label lb = new Label();
 
@@ -53,18 +53,27 @@ namespace WpfApp2
                 sl.Value = 0;
                 sl.Minimum = 0;
                 sl.Maximum = 10;
+                sl.IsSnapToTickEnabled = true;//tick是小數點
+                //sl.TickPlacement = TickPlacement.BottomRight;
 
                 lb.Width = 50;
                 lb.Content = "0";
 
                 sp.Orientation  = Orientation.Horizontal;
-                sp.Height = 30;
+                sp.Margin  = new Thickness(4);
                 sp.Children.Add(cb);
                 sp.Children.Add(sl);
                 sp.Children.Add(lb); 
 
+                Binding myBinding = new Binding("Value");
+                myBinding.Source = sl;
+                lb.SetBinding(ContentProperty, myBinding);
+
+
+
+
                 DrinkMenu.Children.Add(sp);
-                DrinkGroup.Height = (mydrinks.Count+1)*30;
+                DrinkMenu.Height = (mydrinks.Count+1)*35;
             }
 
 
