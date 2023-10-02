@@ -202,7 +202,7 @@ namespace WpfApp2
 
                 if(cb.IsChecked ==true && quantity != 0)
                 {
-                    myorders.Add()
+                    myorders.Add(drinkName, quantity);
                 }
             }
         }
