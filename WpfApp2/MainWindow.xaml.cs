@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +24,9 @@ namespace WpfApp2
     {   
 
         Dictionary<string, int>  drinks = new Dictionary<string, int>();
-        Dictionary<string, int>  order = new Dictionary<string, int>();
+        Dictionary<string, int>  orders = new Dictionary<string, int>();
+        string takeout="";
+
         public MainWindow()
         {   
             InitializeComponent();
@@ -42,7 +46,7 @@ namespace WpfApp2
                 Slider sl = new Slider();
                 Label lb = new Label();
 
-                cb.Content = $"{drink.Key}  {drink.Value}元";
+                cb.Content = $"{drink.Key}:{drink.Value}元";
                 cb.FontFamily = new FontFamily("Consolas");
                 cb.Foreground = Brushes.Blue;
                 cb.FontSize = 18;
@@ -81,14 +85,30 @@ namespace WpfApp2
 
         private void AddNewDrink(Dictionary<string, int> mydrinks)
         {
-            mydrinks.Add("紅茶大杯", 60);
-            mydrinks.Add("紅茶小杯", 40);
-            mydrinks.Add("綠茶大杯", 60);
-            mydrinks.Add("綠茶小杯", 40);
-            mydrinks.Add("青茶大杯", 60);
-            mydrinks.Add("青茶小杯", 40);
-            mydrinks.Add("咖啡大杯", 80);
-            mydrinks.Add("咖啡小杯", 60);
+            //mydrinks.Add("紅茶大杯", 60);
+            //mydrinks.Add("紅茶小杯", 40);
+            //mydrinks.Add("綠茶大杯", 60);
+            //mydrinks.Add("綠茶小杯", 40);
+            //mydrinks.Add("青茶大杯", 60);
+            //mydrinks.Add("青茶小杯", 40);
+            //mydrinks.Add("咖啡大杯", 80);
+            //mydrinks.Add("咖啡小杯", 60);
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV檔案|*.csv|文字檔案|*.txt|所有檔案|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string fileName = openFileDialog.FileName;
+                string[] lines = File.ReadAllLines(fileName);
+                //string text =File.ReadAllText(fileName); 會讀到所有文字包含分割
+                foreach (var line in lines)
+                {
+                    string[] tokens = line.Split(',');
+                    string drinkName = tokens[0];
+                    int price = Convert.ToInt32(tokens[1]);
+                    mydrinks.Add(drinkName, price);
+                }
+            }
         }
 
         private void PlaceOrder(object sender, TextChangedEventArgs e)
@@ -103,53 +123,99 @@ namespace WpfApp2
                 Label targetLabel = targetPanel.Children[0] as Label;
                 string drinkName = targetLabel.Content.ToString();
 
-                if (order.ContainsKey(drinkName)) order.Remove(drinkName);
-                order.Add(drinkName, amount);
+                if (orders.ContainsKey(drinkName)) orders.Remove(drinkName);
+                orders.Add(drinkName, amount);
             }
         }
         private void Click_botton(object sender, RoutedEventArgs e)
         {
-            double total= 0.0;
-            double sellPrice= 0.0;
-            string message = "";
-            string displaystring = "訂購清單如下:\n";
+            //將訂購的飲料加入訂單
+            OrderList(orders);
+            //顯示訂單細項
+            DisplayOrderDetail(orders);
+
+        }
+
+        private void DisplayOrderDetail(Dictionary<string, int> myorders)
+        {
+            displaytextblock.Inlines.Clear();
+            Run titleString = new Run();
+            titleString.Text = "你所訂購的品項";
+            titleString.Foreground = Brushes.Blue;
+            titleString.FontSize = 16;
             
-            foreach (var item in order)
+            displaytextblock.Inlines.Add(titleString);
+
+            
+            //double total = 0.0;
+            //double sellPrice = 0.0;
+            //string message = "";
+            //string displayMessage = "訂購清單如下:\n";
+
+            //foreach (var item in myorders)
+            //{   
+
+            //    string drinkName = item.Key;
+            //    int quantity = myorders[drinkName];
+            //    int price = drinks[drinkName];
+
+            //    total += quantity * price;
+            //    displayMessage += $"{drinkName}   {quantity} 杯， 每杯{price} 共{quantity * price}元\n";
+            //}
+
+            //if (total >= 500)
+            //{
+            //    sellPrice = total * 0.8;
+            //    message = "訂購500元以上者8折";
+
+            //}
+            //else if (total >= 300)
+            //{
+            //    sellPrice = total * 0.9;
+            //    message = "訂購300元以上者9折";
+            //}
+            //else if (total >= 200)
+            //{
+            //    sellPrice = total * 0.95;
+            //    message = "訂購200元以上者95折";
+            //}
+            //else
+            //{
+            //    sellPrice = total;
+            //    message = "訂購未滿200元不打折";
+            //}
+
+            //displayMessage += $"{message}\n原訂單總價為{total}元，折扣後為{sellPrice}元";
+            //displaytextblock.Text = displayMessage;
+        }
+
+        private void OrderList(Dictionary<string, int> myorders)
+        {
+           myorders.Clear();
+           for(int i = 0; i < DrinkMenu.Children.Count; i++)
             {
-                string drinkName = item.Key;
-                int quantity = order[drinkName];
-                int price = drinks[drinkName];
+                var sp = DrinkMenu.Children[i] as StackPanel;
+                var cb = sp.Children[0] as CheckBox;
+                var sl = sp.Children[1] as Slider;
+                String drinkName = cb.Content.ToString().Substring(0, 4);
+                int quantity = Convert.ToInt32(sl.Value);
 
-                total += quantity * price;
-                displaystring += $"{drinkName}   {quantity} 杯， 每杯{price} 共{quantity*price}元\n";
+                if(cb.IsChecked ==true && quantity != 0)
+                {
+                    myorders.Add()
+                }
             }
+        }
 
-            if (total >= 500)
+        private void RadioBotton_Checked(object sender, RoutedEventArgs e)
+        {
+            var rb = sender as RadioButton;
+            if (rb.IsChecked == true)
             {
-                sellPrice = total * 0.8;
-                message = "訂購500元以上者8折";
-
+                takeout = rb.Content.ToString();
+                MessageBox.Show(takeout);
+                
             }
-            else if (total >= 300)
-            {
-                sellPrice = total * 0.9;
-                message = "訂購300元以上者9折";
-            }
-            else if (total >= 200)
-            {
-                sellPrice = total * 0.95;
-                message = "訂購200元以上者95折";
-            }
-            else
-            {
-                sellPrice = total;
-                message = "訂購未滿200元不打折";
-            }
-
-            displaystring += $"{message}\n原訂單總價為{total}元，折扣後為{sellPrice}元";
-            textblock.Text = displaystring;
-
-
         }
     }
 }
