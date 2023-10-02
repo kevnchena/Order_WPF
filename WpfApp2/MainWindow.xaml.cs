@@ -41,30 +41,38 @@ namespace WpfApp2
         {
             foreach(var drink in mydrinks)
             {
-                StackPanel sp = new StackPanel();
-                CheckBox cb = new CheckBox(); //打勾勾
-                Slider sl = new Slider();
-                Label lb = new Label();
 
-                cb.Content = $"{drink.Key}:{drink.Value}元";
-                cb.FontFamily = new FontFamily("Consolas");
-                cb.Foreground = Brushes.Blue;
-                cb.FontSize = 18;
-                cb.Width = 200;
-                cb.Margin= new Thickness(5);
+                CheckBox cb = new CheckBox
+                {
+                    Content = $"{drink.Key}:{drink.Value}元",
+                    FontFamily = new FontFamily("Consolas"),
+                    Foreground = Brushes.Blue,
+                    FontSize = 18,
+                    Width = 200,
+                    Margin = new Thickness(5)
+                }; //打勾勾
 
-                sl.Width = 100;
-                sl.Value = 0;
-                sl.Minimum = 0;
-                sl.Maximum = 10;
-                sl.IsSnapToTickEnabled = true;//tick是小數點
+                Slider sl = new Slider
+                {
+                    Width = 100,
+                    Value = 0,
+                    Minimum = 0,
+                    Maximum = 10,
+                    IsSnapToTickEnabled = true//tick是小數點
+                };
                 //sl.TickPlacement = TickPlacement.BottomRight;
 
-                lb.Width = 50;
-                lb.Content = "0";
+                Label lb = new Label
+                {
+                    Width = 50,
+                    Content = "0"
+                };
 
-                sp.Orientation  = Orientation.Horizontal;
-                sp.Margin  = new Thickness(4);
+                StackPanel sp = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Margin = new Thickness(4)
+                };
                 sp.Children.Add(cb);
                 sp.Children.Add(sl);
                 sp.Children.Add(lb); 
@@ -139,54 +147,72 @@ namespace WpfApp2
         private void DisplayOrderDetail(Dictionary<string, int> myorders)
         {
             displaytextblock.Inlines.Clear();
-            Run titleString = new Run();
-            titleString.Text = "你所訂購的品項";
-            titleString.Foreground = Brushes.Blue;
-            titleString.FontSize = 16;
-            
+            Run titleString = new Run
+            {
+                Text = "你所訂購的品項",
+                Foreground = Brushes.Blue,
+                FontSize = 16,
+                FontWeight = FontWeights.Bold,
+            };
+
             displaytextblock.Inlines.Add(titleString);
 
+            Run takeoutString = new Run
+            {
+                Text = $"{takeout}\n",
+                Background = Brushes.Aqua,
+                FontSize = 16,
+                FontWeight = FontWeights.Bold,
+            };
+
+            displaytextblock.Inlines.Add(titleString);
+            displaytextblock.Inlines.Add(takeoutString);
+            displaytextblock.Inlines.Add(new Run("訂購明細如下:\n"));
             
-            //double total = 0.0;
-            //double sellPrice = 0.0;
-            //string message = "";
-            //string displayMessage = "訂購清單如下:\n";
+            double total = 0.0;
+            double sellPrice = 0.0;
+            int i = 1;
 
-            //foreach (var item in myorders)
-            //{   
 
-            //    string drinkName = item.Key;
-            //    int quantity = myorders[drinkName];
-            //    int price = drinks[drinkName];
 
-            //    total += quantity * price;
-            //    displayMessage += $"{drinkName}   {quantity} 杯， 每杯{price} 共{quantity * price}元\n";
-            //}
+            foreach (var item in myorders)
+            {
 
-            //if (total >= 500)
-            //{
-            //    sellPrice = total * 0.8;
-            //    message = "訂購500元以上者8折";
+                string drinkName = item.Key;
+                int quantity = myorders[drinkName];
+                int price = drinks[drinkName];
 
-            //}
-            //else if (total >= 300)
-            //{
-            //    sellPrice = total * 0.9;
-            //    message = "訂購300元以上者9折";
-            //}
-            //else if (total >= 200)
-            //{
-            //    sellPrice = total * 0.95;
-            //    message = "訂購200元以上者95折";
-            //}
-            //else
-            //{
-            //    sellPrice = total;
-            //    message = "訂購未滿200元不打折";
-            //}
+                total += quantity * price;
+                //displayMessage += $"{drinkName}   {quantity} 杯， 每杯{price} 共{quantity * price}元\n";
+                Run detailString = new Run($"訂購品項{i}:{drinkName} X {quantity}杯，每杯{price}元，小記{price * quantity}元\n");
+                displaytextblock.Inlines.Add(detailString);
+            }
 
-            //displayMessage += $"{message}\n原訂單總價為{total}元，折扣後為{sellPrice}元";
-            //displaytextblock.Text = displayMessage;
+            if (total >= 500)
+            {
+                sellPrice = total * 0.8;
+                
+
+            }
+            else if (total >= 300)
+            {
+                sellPrice = total * 0.9;
+               
+            }
+            else if (total >= 200)
+            {
+                sellPrice = total * 0.95;
+                
+            }
+            else
+            {
+                sellPrice = total;
+                
+            }
+            Italic summaryString = new Italic(new Run($"本次訂購{myorders.Count}杯，原訂單總價為{total}元，折扣後為{sellPrice}元"));
+
+            displaytextblock.Inlines.Add(summaryString);
+
         }
 
         private void OrderList(Dictionary<string, int> myorders)
