@@ -125,17 +125,12 @@ namespace WpfApp2
         {
             var targetTextBox = sender as TextBox;
             bool success = int.TryParse(targetTextBox.Text, out int amount);
-            if (!success) MessageBox.Show("請輸入整數", "輸入錯誤");
-            else if (amount < 0) MessageBox.Show("輸入數值必須大於0", "輸入錯誤");
-            else
-            {
                 StackPanel targetPanel = targetTextBox.Parent as StackPanel;
                 Label targetLabel = targetPanel.Children[0] as Label;
                 string drinkName = targetLabel.Content.ToString();
 
                 if (orders.ContainsKey(drinkName)) orders.Remove(drinkName);
                 orders.Add(drinkName, amount);
-            }
         }
         private void Click_botton(object sender, RoutedEventArgs e)
         {
